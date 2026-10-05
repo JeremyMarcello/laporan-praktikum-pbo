@@ -7,7 +7,7 @@ public class Unguided01 {
         String[] nama = {"Nabil", "Max", "Deo"};
         double[][] nilai = {
             {80.0, 85.0},
-            {70.0, 65.0},
+             {70.0, 65.0},
             {90.0, 90.0}
         };
 
