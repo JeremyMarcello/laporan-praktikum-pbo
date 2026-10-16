@@ -33,7 +33,6 @@ public class PengolahSuhu {
 
     public void isiDataKosong() {
         int index = cariIndexKosong();
-        // ponytail: imputasi rata-rata tetangga terdekat (1 langkah); upgrade ke interpolasi spline/moving average jika rentang data kosong > 1 hari
         if (index > 0 && index < suhuHarian.length - 1) {
             suhuHarian[index] = (suhuHarian[index - 1] + suhuHarian[index + 1]) / 2.0;
         }
@@ -68,19 +67,10 @@ public class PengolahSuhu {
 
         System.out.printf(Locale.US, "Rata-rata : %.2f°C%n%n", pengolah.hitungRataRata());
 
-        /*
-         * Penjelasan perubahan array suhuHarian di main:
-         * Array di Java merupakan tipe data referensi (reference type). Saat array suhuHarian
-         * dikirim ke constructor PengolahSuhu, constructor tersebut menyimpan alamat referensi memori
-         * dari array yang sama persis ke instance field this.suhuHarian (shallow copy/bukan duplikat baru).
-         * Akibatnya, ketika isiDataKosong() memodifikasi elemen array melalui objek, perubahan tersebut
-         * langsung berdampak pada array suhuHarian di main karena keduanya merujuk ke blok memori yang sama.
-         */
         System.out.println("Isi array suhuHarian di main setelah isiDataKosong() dijalankan:");
         System.out.println(Arrays.toString(suhuHarian));
         System.out.println("(ikut berubah: constructor menyimpan referensi array yang sama)");
 
-        // Self-check
         assert suhuHarian[3] == 29.1 : "Imputasi data suhu hari ke-4 gagal";
         assert Math.abs(pengolah.hitungRataRata() - 29.3857) < 0.01 : "Perhitungan rata-rata tidak valid";
     }
